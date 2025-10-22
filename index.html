@@ -3,108 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MaxDispo Wholesale Deal Analyzer</title>
+    <title>MaxDispo Deal Analyzer</title>
+    
+    <!-- Adobe Fonts - Anton -->
+    <link rel="stylesheet" href="https://use.typekit.net/dui8eil.css">
+
+    <!-- Google Fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        @font-face {
+            font-family: 'Black Mustang';
+            src: url('fonts/Black Mustang.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --gold-dark: #6e5732;
+            --gold-light: #b69856;
+            --black: #151515;
+            --dark-gray: #1f1f1f;
+            --light-gray: #e0e0e0;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #151515;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-        }
-        
-        .header h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-        
-        .header p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #444;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-            font-family: inherit;
-            background: white;
-        }
-        
-        select {
-            cursor: pointer;
-        }
-        
-        input:focus, select:focus {
-            outline: none;
-            border-color: #b69856;
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #6e5732 0%, #b69856 100%);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            background: var(--black);
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 10px;
+            min-height: 100vh;
         }
-        
-        .btn:hover {
+
+        /* Header */
+        header {
+            background: var(--dark-gray);
+            border-bottom: 2px solid var(--gold-light);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 400;
+            font-family: 'Black Mustang', sans-serif;
+            background: linear-gradient(45deg, #C1A25B, #69522F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .tagline {
+            color: #999;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(182, 152, 86, 0.3);
+        }
+
+        .back-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(182, 152, 86, 0.4);
         }
-        
-        .btn:active {
-            transform: translateY(0);
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 50px;
+            background: linear-gradient(180deg, var(--dark-gray) 0%, var(--black) 100%);
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(45deg, #C1A25B, #69522F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 15px;
+            color: #aaa;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 35px 20px 60px;
+        }
+
+        /* Analyzer Card */
+        .analyzer-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .analyzer-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 50px rgba(182, 152, 86, 0.35);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 28px;
+            padding-bottom: 22px;
+            border-bottom: 2px solid #f5f5f5;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+            box-shadow: 0 6px 20px rgba(182, 152, 86, 0.4);
+            line-height: 1;
+            text-align: center;
         }
         
+        .card-icon i {
+            color: white;
+        }
+
+        .card-info h2 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .card-info p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-family: inherit;
+            background: white;
+        }
+
+        .form-select {
+            cursor: pointer;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            box-shadow: 0 0 0 3px rgba(182, 152, 86, 0.1);
+        }
+
+        .analyze-btn {
+            width: 100%;
+            padding: 16px 28px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(182, 152, 86, 0.3);
+            margin-top: 10px;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(182, 152, 86, 0.4);
+        }
+
+        .analyze-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Result Styles */
         .result {
             margin-top: 30px;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 30px;
+            border-radius: 12px;
             text-align: center;
             animation: slideIn 0.3s ease;
         }
-        
+
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -115,118 +286,511 @@
                 transform: translateY(0);
             }
         }
-        
+
         .result.yes {
             background: #d4edda;
-            border: 2px solid #28a745;
-            color: #155724;
+            border: 3px solid #28a745;
         }
-        
+
         .result.maybe {
             background: #fff3cd;
-            border: 2px solid #ffc107;
-            color: #856404;
+            border: 3px solid #ffc107;
         }
-        
+
         .result.no {
             background: #f8d7da;
-            border: 2px solid #dc3545;
+            border: 3px solid #dc3545;
+        }
+
+        .result h3 {
+            font-weight: 800;
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .result.yes h3 {
+            color: #155724;
+        }
+
+        .result.maybe h3 {
+            color: #856404;
+        }
+
+        .result.no h3 {
             color: #721c24;
         }
-        
-        .result h2 {
+
+        .result-message {
+            font-size: 16px;
             font-weight: 600;
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-        
-        .result p {
-            font-size: 14px;
             line-height: 1.6;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
-        
-        .result .details {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+        .result.yes .result-message {
+            color: #155724;
+        }
+
+        .result.maybe .result-message {
+            color: #856404;
+        }
+
+        .result.no .result-message {
+            color: #721c24;
+        }
+
+        .result-details {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 2px solid rgba(0, 0, 0, 0.1);
             text-align: left;
         }
-        
-        .result .details p {
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
             font-size: 14px;
-            margin-bottom: 5px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
-        
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+        }
+
+        .result.yes .detail-label,
+        .result.yes .detail-value {
+            color: #155724;
+        }
+
+        .result.maybe .detail-label,
+        .result.maybe .detail-value {
+            color: #856404;
+        }
+
+        .result.no .detail-label,
+        .result.no .detail-value {
+            color: #721c24;
+        }
+
+        .result-note {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            font-size: 13px;
+            font-style: italic;
+            font-weight: 600;
+        }
+
         .hidden {
             display: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            border-top: 2px solid var(--gold-light);
+            margin-top: 50px;
+        }
+
+        .footer-ad-section {
+            background: linear-gradient(135deg, #1a1410 0%, #2a1f15 100%);
+            padding: 60px 20px;
+            border-bottom: 1px solid rgba(193, 162, 91, 0.2);
+        }
+
+        .footer-ad-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .footer-ad-left {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .footer-academy-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(182, 152, 86, 0.4);
+            border: 2px solid var(--gold-light);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .footer-academy-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(182, 152, 86, 0.6);
+        }
+
+        .footer-ad-text {
+            flex: 1;
+        }
+
+        .footer-ad-title {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #C1A25B, #69522F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-ad-description {
+            color: #ccc;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .footer-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        .feature-icon {
+            color: var(--gold-light);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .footer-ad-right {
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-cta-box {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(182, 152, 86, 0.5);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .footer-price-tag {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .footer-price-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        .footer-price {
+            color: white;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-price-subtext {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-cta-btn {
+            display: block;
+            background: white;
+            color: var(--gold-dark);
+            padding: 16px 28px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.3px;
+            margin-bottom: 16px;
+        }
+
+        .footer-cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            background: #f8f8f8;
+        }
+
+        .footer-guarantee {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-bottom {
+            padding: 30px 20px;
+            text-align: center;
+            background: var(--dark-gray);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 400;
+            font-family: 'Black Mustang', sans-serif;
+            background: linear-gradient(45deg, #C1A25B, #69522F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .analyzer-card {
+                padding: 24px 18px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .card-info h2 {
+                font-size: 22px;
+            }
+
+            .result h3 {
+                font-size: 24px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .footer-ad-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-ad-left {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-academy-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .footer-ad-title {
+                font-size: 24px;
+            }
+
+            .footer-features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-cta-box {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>MaxDispo Deal Analyzer</h1>
-            <p>Evaluate wholesale deals with the 90% rule</p>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div>
+                <div class="logo" onclick="window.location.href='index.html'">Deal Analyzer</div>
+                <div class="tagline">Check Your Deals before Submitted to Dispo</div>
+            </div>
         </div>
+    </header>
 
-        <form id="dealForm">
-            <div class="form-group">
-                <label for="address">Property Address</label>
-                <input type="text" id="address" name="address" placeholder="123 Main St, City, State" required>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1><span class="gradient-text">MaxDispo Deal Analyzer</span> <span style="color: white;">Tool</span></h1>
+        <p>Evaluate wholesale deals using the 90% rule to determine if MaxDispo has a buyer ready for your property</p>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="analyzer-card">
+            <div class="card-header">
+                <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
+                <div class="card-info">
+                    <h2>MaxDispo Deal Analyzer</h2>
+                    <p>Enter your property details below to instantly determine deal viability using the proven 90% rule formula</p>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="population">Population</label>
-                <input type="text" id="population" name="population" placeholder="50000" required>
-            </div>
+            <form id="dealForm">
+                <div class="form-group">
+                    <label for="address" class="form-label">Property Address</label>
+                    <input type="text" id="address" class="form-input" placeholder="123 Main St, City, State" required>
+                </div>
 
-            <div class="form-group">
-                <label for="arv">ARV (After Repair Value)</label>
-                <input type="number" id="arv" name="arv" placeholder="300000" step="1000" required>
-            </div>
+                <div class="form-group">
+                    <label for="population" class="form-label">Population</label>
+                    <input type="text" id="population" class="form-input" placeholder="50,000" required>
+                </div>
 
-            <div class="form-group">
-                <label for="repairs">Estimated Repairs</label>
-                <input type="number" id="repairs" name="repairs" placeholder="50000" step="1000" required>
-            </div>
+                <div class="form-group">
+                    <label for="arv" class="form-label">ARV (After Repair Value)</label>
+                    <input type="number" id="arv" class="form-input" placeholder="$300,000" step="1000" required>
+                </div>
 
-            <div class="form-group">
-                <label for="listingPrice">On Market Listing Price</label>
-                <input type="number" id="listingPrice" name="listingPrice" placeholder="200000" step="1000" required>
-            </div>
+                <div class="form-group">
+                    <label for="repairs" class="form-label">Estimated Repairs</label>
+                    <input type="number" id="repairs" class="form-input" placeholder="$50,000" step="1000" required>
+                </div>
 
-            <div class="form-group">
-                <label for="condition">Property Condition</label>
-                <select id="condition" name="condition" required>
-                    <option value="">Select Condition</option>
-                    <option value="needswork">Needs Work/Repairs</option>
-                    <option value="turnkey">Turnkey/Cash Ready</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="listingPrice" class="form-label">On Market Listing Price</label>
+                    <input type="number" id="listingPrice" class="form-input" placeholder="$200,000" step="1000" required>
+                </div>
 
-            <button type="submit" class="btn">Analyze Deal</button>
-        </form>
+                <div class="form-group">
+                    <label for="condition" class="form-label">Property Condition</label>
+                    <select id="condition" class="form-select" required>
+                        <option value="">Select Condition</option>
+                        <option value="needswork">Needs Work/Repairs</option>
+                        <option value="turnkey">Turnkey/Cash Ready</option>
+                    </select>
+                </div>
 
-        <div id="result" class="result hidden"></div>
+                <button type="submit" class="analyze-btn">
+                    <i class="fa-solid fa-chart-line"></i> Analyze Deal
+                </button>
+            </form>
+
+            <div id="result" class="result hidden"></div>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-ad-section">
+            <div class="footer-ad-content">
+                <div class="footer-ad-left">
+                    <a href="https://www.skool.com/how-to-wholesale/about?ref=26880ff623564ca0a17ff78586c11984" target="_blank">
+                        <img src="images/Wholesailors-Academy-V2.webp" alt="Wholesailors Academy" class="footer-academy-logo">
+                    </a>
+                    <div class="footer-ad-text">
+                        <h3 class="footer-ad-title">Ready to Master Wholesaling?</h3>
+                        <p class="footer-ad-description">Join 1,000+ students learning proven strategies to flip houses to hedge funds, build portfolios, and scale their real estate wholesaling business.</p>
+                        <div class="footer-features">
+                            <div class="footer-feature">
+                                <span class="feature-icon">✓</span>
+                                <span>Live Weekly Coaching</span>
+                            </div>
+                            <div class="footer-feature">
+                                <span class="feature-icon">✓</span>
+                                <span>Private Community Access</span>
+                            </div>
+                            <div class="footer-feature">
+                                <span class="feature-icon">✓</span>
+                                <span>Proven Deal Scripts & Templates</span>
+                            </div>
+                            <div class="footer-feature">
+                                <span class="feature-icon">✓</span>
+                                <span>Exclusive Buyer Network</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-ad-right">
+                    <div class="footer-cta-box">
+                        <div class="footer-price-tag">
+                            <span class="footer-price-label">START TODAY FOR ONLY</span>
+                            <span class="footer-price">$0.50/day</span>
+                            <span class="footer-price-subtext">That's just $15/month</span>
+                        </div>
+                        <a href="https://www.skool.com/how-to-wholesale/about?ref=26880ff623564ca0a17ff78586c11984" target="_blank" class="footer-cta-btn">
+                            Join Wholesailors Academy Now →
+                        </a>
+                        <p class="footer-guarantee">30-Day Money-Back Guarantee</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-content">
+                <div class="footer-logo">Deal Analyzer</div>
+                <p class="footer-text">
+                    © 2025 Wholesailors Academy. All rights reserved. | Deal Analyzer Tool
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.getElementById('dealForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            var arv = parseFloat(document.getElementById('arv').value);
-            var repairs = parseFloat(document.getElementById('repairs').value);
-            var listingPrice = parseFloat(document.getElementById('listingPrice').value);
-            var address = document.getElementById('address').value;
-            var populationStr = document.getElementById('population').value;
-            var condition = document.getElementById('condition').value;
+            const arv = parseFloat(document.getElementById('arv').value);
+            const repairs = parseFloat(document.getElementById('repairs').value);
+            const listingPrice = parseFloat(document.getElementById('listingPrice').value);
+            const address = document.getElementById('address').value;
+            const populationStr = document.getElementById('population').value;
+            const condition = document.getElementById('condition').value;
 
-            var population = parseInt(populationStr.replace(/,/g, ''));
+            const population = parseInt(populationStr.replace(/,/g, ''));
 
-            var resultDiv = document.getElementById('result');
-            var resultClass, resultTitle, resultMessage;
+            const resultDiv = document.getElementById('result');
+            let resultClass, resultTitle, resultMessage;
 
+            // Check population requirement
             if (population < 10000) {
                 resultClass = 'no';
                 resultTitle = 'NO';
@@ -234,22 +798,45 @@
                 
                 resultDiv.className = 'result ' + resultClass;
                 resultDiv.classList.remove('hidden');
-                resultDiv.innerHTML = '<h2>' + resultTitle + '</h2>' +
-                    '<p><strong>' + resultMessage + '</strong></p>' +
-                    '<div class="details">' +
-                    '<p><strong>Property:</strong> ' + address + '</p>' +
-                    '<p><strong>Population:</strong> ' + population.toLocaleString() + '</p>' +
-                    '<p><strong>Condition:</strong> ' + (condition === 'turnkey' ? 'Turnkey/Cash Ready' : 'Needs Work/Repairs') + '</p>' +
-                    '<p><strong>ARV:</strong> $' + arv.toLocaleString() + '</p>' +
-                    '<p><strong>Repairs:</strong> $' + repairs.toLocaleString() + '</p>' +
-                    '<p><strong>Listing Price:</strong> $' + listingPrice.toLocaleString() + '</p>' +
-                    '<p style="margin-top: 15px; font-style: italic; font-weight: 600;">Reason: Population below 10,000 minimum requirement</p>' +
-                    '</div>';
+                resultDiv.innerHTML = `
+                    <h3>${resultTitle}</h3>
+                    <p class="result-message">${resultMessage}</p>
+                    <div class="result-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Property:</span>
+                            <span class="detail-value">${address}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Population:</span>
+                            <span class="detail-value">${population.toLocaleString()}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Condition:</span>
+                            <span class="detail-value">${condition === 'turnkey' ? 'Turnkey/Cash Ready' : 'Needs Work/Repairs'}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">ARV:</span>
+                            <span class="detail-value">$${arv.toLocaleString()}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Repairs:</span>
+                            <span class="detail-value">$${repairs.toLocaleString()}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Listing Price:</span>
+                            <span class="detail-value">$${listingPrice.toLocaleString()}</span>
+                        </div>
+                        <div class="result-note">
+                            Reason: Population below 10,000 minimum requirement
+                        </div>
+                    </div>
+                `;
                 
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 return;
             }
 
+            // Check if turnkey
             if (condition === 'turnkey') {
                 resultClass = 'maybe';
                 resultTitle = 'MAYBE';
@@ -257,25 +844,49 @@
                 
                 resultDiv.className = 'result ' + resultClass;
                 resultDiv.classList.remove('hidden');
-                resultDiv.innerHTML = '<h2>' + resultTitle + '</h2>' +
-                    '<p><strong>' + resultMessage + '</strong></p>' +
-                    '<div class="details">' +
-                    '<p><strong>Property:</strong> ' + address + '</p>' +
-                    '<p><strong>Population:</strong> ' + population.toLocaleString() + '</p>' +
-                    '<p><strong>Condition:</strong> Turnkey/Cash Ready</p>' +
-                    '<p><strong>ARV:</strong> $' + arv.toLocaleString() + '</p>' +
-                    '<p><strong>Repairs:</strong> $' + repairs.toLocaleString() + '</p>' +
-                    '<p><strong>Listing Price:</strong> $' + listingPrice.toLocaleString() + '</p>' +
-                    '<p style="margin-top: 15px; font-style: italic;">Note: Turnkey properties cannot receive an immediate YES rating</p>' +
-                    '</div>';
+                resultDiv.innerHTML = `
+                    <h3>${resultTitle}</h3>
+                    <p class="result-message">${resultMessage}</p>
+                    <div class="result-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Property:</span>
+                            <span class="detail-value">${address}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Population:</span>
+                            <span class="detail-value">${population.toLocaleString()}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Condition:</span>
+                            <span class="detail-value">Turnkey/Cash Ready</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">ARV:</span>
+                            <span class="detail-value">$${arv.toLocaleString()}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Repairs:</span>
+                            <span class="detail-value">$${repairs.toLocaleString()}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Listing Price:</span>
+                            <span class="detail-value">$${listingPrice.toLocaleString()}</span>
+                        </div>
+                        <div class="result-note">
+                            Note: Turnkey properties cannot receive an immediate YES rating
+                        </div>
+                    </div>
+                `;
                 
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 return;
             }
 
-            var yesThreshold = (arv * 0.9) - (2 * repairs);
-            var maybeThreshold = (arv * 0.9) - (1.5 * repairs);
+            // Calculate thresholds
+            const yesThreshold = (arv * 0.9) - (2 * repairs);
+            const maybeThreshold = (arv * 0.9) - (1.5 * repairs);
 
+            // Determine result
             if (listingPrice <= yesThreshold) {
                 resultClass = 'yes';
                 resultTitle = 'YES';
@@ -292,18 +903,44 @@
 
             resultDiv.className = 'result ' + resultClass;
             resultDiv.classList.remove('hidden');
-            resultDiv.innerHTML = '<h2>' + resultTitle + '</h2>' +
-                '<p><strong>' + resultMessage + '</strong></p>' +
-                '<div class="details">' +
-                '<p><strong>Property:</strong> ' + address + '</p>' +
-                '<p><strong>Population:</strong> ' + population.toLocaleString() + '</p>' +
-                '<p><strong>Condition:</strong> Needs Work/Repairs</p>' +
-                '<p><strong>ARV:</strong> $' + arv.toLocaleString() + '</p>' +
-                '<p><strong>Repairs:</strong> $' + repairs.toLocaleString() + '</p>' +
-                '<p><strong>Listing Price:</strong> $' + listingPrice.toLocaleString() + '</p>' +
-                '<p><strong>YES Threshold (MAO):</strong> $' + yesThreshold.toLocaleString() + '</p>' +
-                '<p><strong>MAYBE Threshold:</strong> $' + maybeThreshold.toLocaleString() + '</p>' +
-                '</div>';
+            resultDiv.innerHTML = `
+                <h3>${resultTitle}</h3>
+                <p class="result-message">${resultMessage}</p>
+                <div class="result-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Property:</span>
+                        <span class="detail-value">${address}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Population:</span>
+                        <span class="detail-value">${population.toLocaleString()}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Condition:</span>
+                        <span class="detail-value">Needs Work/Repairs</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">ARV:</span>
+                        <span class="detail-value">$${arv.toLocaleString()}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Repairs:</span>
+                        <span class="detail-value">$${repairs.toLocaleString()}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Listing Price:</span>
+                        <span class="detail-value">$${listingPrice.toLocaleString()}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">YES Threshold (MAO):</span>
+                        <span class="detail-value">$${yesThreshold.toLocaleString()}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">MAYBE Threshold:</span>
+                        <span class="detail-value">$${maybeThreshold.toLocaleString()}</span>
+                    </div>
+                </div>
+            `;
 
             resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
