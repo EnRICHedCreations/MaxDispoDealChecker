@@ -737,6 +737,29 @@
                     max-width: 100%;
                 }
             }
+            /* Notification styles */
+            .clipboard-notification {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: var(--gold-light);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                z-index: 1001;
+                font-size: 16px;
+                font-weight: 600;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                opacity: 0;
+                transition: opacity 0.3s, top 0.3s;
+            }
+
+            .clipboard-notification.show {
+                opacity: 1;
+                top: 30px;
+            }
+
         </style>
     </head>
     <body>
@@ -902,6 +925,50 @@
         </footer>
     
         <script>
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'clipboard-notification';
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
+                // Animate in
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 10);
+
+                // Animate out and remove
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+
+            function copyResultsToClipboard(data) {
+                const textToCopy = `
+                    Property Address: ${data.address}
+                    Population: ${data.population.toLocaleString()}
+                    Condition: ${data.condition === 'turnkey' ? 'Turnkey/Cash Ready' : 'Needs Work/Repairs'}
+                    ARV: $${data.arv.toLocaleString()}
+                    Repairs: $${data.repairs.toLocaleString()}
+                    Contract Price: $${data.contractPrice.toLocaleString()}
+                    ${data.isOnMarket ? `Listing Price: $${data.listingPrice.toLocaleString()}\n` : ''}
+                    --- CALCULATIONS ---
+                    MAO: $${data.yesThreshold.toLocaleString()}
+                    ${data.maybeThreshold ? `MAYBE Threshold: $${data.maybeThreshold.toLocaleString()}` : ''}
+                `.replace(/^\s+/gm, ''); // Remove leading whitespace from each line
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showNotification('Results copied to clipboard! Paste in MaxDispo submission form.');
+                }).catch(err => {
+                    console.error('Failed to copy results: ', err);
+                    showNotification('Failed to copy results.');
+                });
+            }
+        </script>
+
+        <script>
             const onMarketSwitch = document.getElementById('onMarketSwitch');
             const listingPriceInput = document.getElementById('listingPrice');
             const listingPriceContainer = document.getElementById('listingPriceContainer');
@@ -1033,10 +1100,11 @@
                 if (resultClass === 'yes') {
                     detailsHtml = baseDetails + `
                         <div class="detail-row">
-                            <span class="detail-label">MAO:</span>
+                            <span class="detail-label">YES:</span>
                             <span class="detail-value">$${yesThreshold.toLocaleString()}</span>
                         </div>
                     `;
+                    copyResultsToClipboard({ address, population, condition, arv, repairs, contractPrice, isOnMarket, listingPrice, yesThreshold });
                 } else if (resultClass === 'maybe') {
                     detailsHtml = baseDetails + `
                         <div class="detail-row">
@@ -1048,6 +1116,7 @@
                             <span class="detail-value">$${maybeThreshold.toLocaleString()}</span>
                         </div>
                     `;
+                    copyResultsToClipboard({ address, population, condition, arv, repairs, contractPrice, isOnMarket, listingPrice, yesThreshold, maybeThreshold });
                 } else { // NO case
                     detailsHtml += baseDetails;
                      if (reasonNote) {
