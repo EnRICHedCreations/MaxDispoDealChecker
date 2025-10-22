@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaxDispo Wholesale Deal Analyzer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #151515;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .header p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #444;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+            background: white;
+        }
+        
+        select {
+            cursor: pointer;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #b69856;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6e5732 0%, #b69856 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(182, 152, 86, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result.yes {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        
+        .result.maybe {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+        
+        .result.no {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        
+        .result h2 {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .result p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .result .details {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        
+        .result .details p {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>MaxDispo Deal Analyzer</h1>
+            <p>Evaluate wholesale deals with the 90% rule</p>
+        </div>
+
+        <form id="dealForm">
+            <div class="form-group">
+                <label for="address">Property Address</label>
+                <input type="text" id="address" name="address" placeholder="123 Main St, City, State" required>
+            </div>
+
+            <div class="form-group">
+                <label for="population">Population</label>
+                <input type="text" id="population" name="population" placeholder="50000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="arv">ARV (After Repair Value)</label>
+                <input type="number" id="arv" name="arv" placeholder="300000" step="1000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="repairs">Estimated Repairs</label>
+                <input type="number" id="repairs" name="repairs" placeholder="50000" step="1000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="listingPrice">On Market Listing Price</label>
+                <input type="number" id="listingPrice" name="listingPrice" placeholder="200000" step="1000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="condition">Property Condition</label>
+                <select id="condition" name="condition" required>
+                    <option value="">Select Condition</option>
+                    <option value="needswork">Needs Work/Repairs</option>
+                    <option value="turnkey">Turnkey/Cash Ready</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Analyze Deal</button>
+        </form>
+
+        <div id="result" class="result hidden"></div>
+    </div>
+
+    <script>
+        document.getElementById('dealForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            var arv = parseFloat(document.getElementById('arv').value);
+            var repairs = parseFloat(document.getElementById('repairs').value);
+            var listingPrice = parseFloat(document.getElementById('listingPrice').value);
+            var address = document.getElementById('address').value;
+            var populationStr = document.getElementById('population').value;
+            var condition = document.getElementById('condition').value;
+
+            var population = parseInt(populationStr.replace(/,/g, ''));
+
+            var resultDiv = document.getElementById('result');
+            var resultClass, resultTitle, resultMessage;
+
+            if (population < 10000) {
+                resultClass = 'no';
+                resultTitle = 'NO';
+                resultMessage = 'MaxDispo does NOT have a buyer for this deal';
+                
+                resultDiv.className = 'result ' + resultClass;
+                resultDiv.classList.remove('hidden');
+                resultDiv.innerHTML = '<h2>' + resultTitle + '</h2>' +
+                    '<p><strong>' + resultMessage + '</strong></p>' +
+                    '<div class="details">' +
+                    '<p><strong>Property:</strong> ' + address + '</p>' +
+                    '<p><strong>Population:</strong> ' + population.toLocaleString() + '</p>' +
+                    '<p><strong>Condition:</strong> ' + (condition === 'turnkey' ? 'Turnkey/Cash Ready' : 'Needs Work/Repairs') + '</p>' +
+                    '<p><strong>ARV:</strong> $' + arv.toLocaleString() + '</p>' +
+                    '<p><strong>Repairs:</strong> $' + repairs.toLocaleString() + '</p>' +
+                    '<p><strong>Listing Price:</strong> $' + listingPrice.toLocaleString() + '</p>' +
+                    '<p style="margin-top: 15px; font-style: italic; font-weight: 600;">Reason: Population below 10,000 minimum requirement</p>' +
+                    '</div>';
+                
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+
+            if (condition === 'turnkey') {
+                resultClass = 'maybe';
+                resultTitle = 'MAYBE';
+                resultMessage = 'MaxDispo might have a buyer for this deal (Turnkey properties require additional review)';
+                
+                resultDiv.className = 'result ' + resultClass;
+                resultDiv.classList.remove('hidden');
+                resultDiv.innerHTML = '<h2>' + resultTitle + '</h2>' +
+                    '<p><strong>' + resultMessage + '</strong></p>' +
+                    '<div class="details">' +
+                    '<p><strong>Property:</strong> ' + address + '</p>' +
+                    '<p><strong>Population:</strong> ' + population.toLocaleString() + '</p>' +
+                    '<p><strong>Condition:</strong> Turnkey/Cash Ready</p>' +
+                    '<p><strong>ARV:</strong> $' + arv.toLocaleString() + '</p>' +
+                    '<p><strong>Repairs:</strong> $' + repairs.toLocaleString() + '</p>' +
+                    '<p><strong>Listing Price:</strong> $' + listingPrice.toLocaleString() + '</p>' +
+                    '<p style="margin-top: 15px; font-style: italic;">Note: Turnkey properties cannot receive an immediate YES rating</p>' +
+                    '</div>';
+                
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+
+            var yesThreshold = (arv * 0.9) - (2 * repairs);
+            var maybeThreshold = (arv * 0.9) - (1.5 * repairs);
+
+            if (listingPrice <= yesThreshold) {
+                resultClass = 'yes';
+                resultTitle = 'YES';
+                resultMessage = 'MaxDispo has a buyer for this deal (If the numbers are accurate)';
+            } else if (listingPrice <= maybeThreshold) {
+                resultClass = 'maybe';
+                resultTitle = 'MAYBE';
+                resultMessage = 'MaxDispo might have a buyer for this deal';
+            } else {
+                resultClass = 'no';
+                resultTitle = 'NO';
+                resultMessage = 'MaxDispo does NOT have a buyer for this deal';
+            }
+
+            resultDiv.className = 'result ' + resultClass;
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = '<h2>' + resultTitle + '</h2>' +
+                '<p><strong>' + resultMessage + '</strong></p>' +
+                '<div class="details">' +
+                '<p><strong>Property:</strong> ' + address + '</p>' +
+                '<p><strong>Population:</strong> ' + population.toLocaleString() + '</p>' +
+                '<p><strong>Condition:</strong> Needs Work/Repairs</p>' +
+                '<p><strong>ARV:</strong> $' + arv.toLocaleString() + '</p>' +
+                '<p><strong>Repairs:</strong> $' + repairs.toLocaleString() + '</p>' +
+                '<p><strong>Listing Price:</strong> $' + listingPrice.toLocaleString() + '</p>' +
+                '<p><strong>YES Threshold (MAO):</strong> $' + yesThreshold.toLocaleString() + '</p>' +
+                '<p><strong>MAYBE Threshold:</strong> $' + maybeThreshold.toLocaleString() + '</p>' +
+                '</div>';
+
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+</body>
+</html>
