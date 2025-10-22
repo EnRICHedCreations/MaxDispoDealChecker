@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MaxDispo Deal Analyzer</title>
+    <title>MaxDispo Deal Analyzer - Deal Analyzer</title>
     
     <!-- Adobe Fonts - Anton -->
     <link rel="stylesheet" href="https://use.typekit.net/dui8eil.css">
@@ -65,50 +65,78 @@
             align-items: center;
         }
 
-        .logo {
-            font-size: 3rem;
-            font-weight: 400;
-            font-family: 'Black Mustang', sans-serif;
-            background: linear-gradient(45deg, #C1A25B, #69522F);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-            margin: 0;
+        .logo-container {
             cursor: pointer;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            display: block;
         }
 
         .tagline {
             color: #999;
             font-size: 13px;
             font-weight: 500;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
-        .back-btn {
-            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-flex;
+        /* Academy Advertisement */
+        .academy-ad {
+            display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(193, 162, 91, 0.1) 0%, rgba(105, 82, 47, 0.1) 100%);
+            border: 2px solid var(--gold-light);
+            border-radius: 12px;
+            text-decoration: none;
             transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(182, 152, 86, 0.3);
+            box-shadow: 0 4px 15px rgba(182, 152, 86, 0.2);
         }
 
-        .back-btn:hover {
+        .academy-ad:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(182, 152, 86, 0.4);
+            background: linear-gradient(135deg, rgba(193, 162, 91, 0.2) 0%, rgba(105, 82, 47, 0.2) 100%);
+            box-shadow: 0 8px 25px rgba(182, 152, 86, 0.4);
+        }
+
+        .academy-logo {
+            height: 50px;
+            width: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .academy-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .academy-cta {
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            line-height: 1.2;
+        }
+
+        .academy-price {
+            background: linear-gradient(45deg, #C1A25B, #69522F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 40px 20px 50px;
+            padding: 40px 20px 0px;
             background: linear-gradient(180deg, var(--dark-gray) 0%, var(--black) 100%);
         }
 
@@ -210,7 +238,18 @@
         }
 
         /* Form Styles */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
         .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group.full-width {
             margin-bottom: 24px;
         }
 
@@ -385,6 +424,7 @@
             font-size: 13px;
             font-style: italic;
             font-weight: 600;
+            color: black;
         }
 
         .hidden {
@@ -571,15 +611,9 @@
         }
 
         .footer-logo {
-            font-size: 2rem;
-            font-weight: 400;
-            font-family: 'Black Mustang', sans-serif;
-            background: linear-gradient(45deg, #C1A25B, #69522F);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-            margin: 0;
+            height: 40px;
+            width: auto;
+            margin: 0 auto 8px;
         }
 
         /* Responsive */
@@ -588,6 +622,15 @@
                 flex-direction: column;
                 gap: 12px;
                 align-items: center;
+            }
+
+            .logo {
+                height: 40px;
+            }
+
+            .academy-ad {
+                width: 100%;
+                justify-content: center;
             }
 
             .hero h1 {
@@ -605,6 +648,11 @@
 
             .card-info h2 {
                 font-size: 22px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 24px;
             }
 
             .result h3 {
@@ -650,10 +698,16 @@
     <!-- Header -->
     <header>
         <div class="header-content">
-            <div>
-                <div class="logo" onclick="window.location.href='index.html'">Deal Analyzer</div>
-                <div class="tagline">Check Your Deals before Submitted to Dispo</div>
+            <div class="logo-container" onclick="window.location.href='index.html'">
+                <img src="https://maxdispo.com/wp-content/uploads/2025/02/maxdispo-logo-white-1024x593.png" alt="MaxDispo" class="logo">
             </div>
+            <a href="https://www.skool.com/how-to-wholesale/about?ref=26880ff623564ca0a17ff78586c11984" target="_blank" class="academy-ad">
+                <img src="images/Wholesailors-Academy-V2.webp" alt="Wholesailors Academy" class="academy-logo">
+                <div class="academy-text">
+                    <span class="academy-cta">Join Wholesailors Academy</span>
+                    <span class="academy-price">Only $0.50/day ($15/mo)</span>
+                </div>
+            </a>
         </div>
     </header>
 
@@ -675,38 +729,44 @@
             </div>
 
             <form id="dealForm">
-                <div class="form-group">
-                    <label for="address" class="form-label">Property Address</label>
-                    <input type="text" id="address" class="form-input" placeholder="123 Main St, City, State" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="address" class="form-label">Property Address</label>
+                        <input type="text" id="address" class="form-input" placeholder="123 Main St, City, State" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="population" class="form-label">Population</label>
+                        <input type="text" id="population" class="form-input" placeholder="50,000" required>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="population" class="form-label">Population</label>
-                    <input type="text" id="population" class="form-input" placeholder="50,000" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="arv" class="form-label">ARV (After Repair Value)</label>
+                        <input type="number" id="arv" class="form-input" placeholder="$300,000" step="1000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="repairs" class="form-label">Estimated Repairs</label>
+                        <input type="number" id="repairs" class="form-input" placeholder="$50,000" step="1000" required>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="arv" class="form-label">ARV (After Repair Value)</label>
-                    <input type="number" id="arv" class="form-input" placeholder="$300,000" step="1000" required>
-                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="listingPrice" class="form-label">On Market Listing Price</label>
+                        <input type="number" id="listingPrice" class="form-input" placeholder="$200,000" step="1000" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="repairs" class="form-label">Estimated Repairs</label>
-                    <input type="number" id="repairs" class="form-input" placeholder="$50,000" step="1000" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="listingPrice" class="form-label">Seller's Asking Price</label>
-                    <input type="number" id="listingPrice" class="form-input" placeholder="$200,000" step="1000" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="condition" class="form-label">Property Condition</label>
-                    <select id="condition" class="form-select" required>
-                        <option value="">Select Condition</option>
-                        <option value="needswork">Needs Work/Repairs</option>
-                        <option value="turnkey">Turnkey/Cash Ready</option>
-                    </select>
+                    <div class="form-group">
+                        <label for="condition" class="form-label">Property Condition</label>
+                        <select id="condition" class="form-select" required>
+                            <option value="">Select Condition</option>
+                            <option value="needswork">Needs Work/Repairs</option>
+                            <option value="turnkey">Turnkey/Cash Ready</option>
+                        </select>
+                    </div>
                 </div>
 
                 <button type="submit" class="analyze-btn">
@@ -766,9 +826,9 @@
         </div>
         <div class="footer-bottom">
             <div class="footer-content">
-                <div class="footer-logo">Deal Analyzer</div>
+                <img src="https://maxdispo.com/wp-content/uploads/2025/02/maxdispo-logo-white-1024x593.png" alt="MaxDispo" class="footer-logo">
                 <p class="footer-text">
-                    © 2025 Wholesailors Academy. All rights reserved. | Deal Analyzer Tool
+                    © 2025 Wholesailors Academy. All rights reserved. | Deal Analyzer
                 </p>
             </div>
         </div>
@@ -812,65 +872,19 @@
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Condition:</span>
-                            <span class="detail-value">${condition === 'turnkey' ? 'Turnkey/Cash Ready' : 'Needs Work/Repairs'}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">ARV:</span>
-                            <span class="detail-value">$${arv.toLocaleString()}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Repairs:</span>
-                            <span class="detail-value">$${repairs.toLocaleString()}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Listing Price:</span>
-                            <span class="detail-value">$${listingPrice.toLocaleString()}</span>
-                        </div>
-                        <div class="result-note">
-                            Reason: Population below 10,000 minimum requirement
-                        </div>
-                    </div>
-                `;
-                
-                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                return;
-            }
-
-            // Check if turnkey
-            if (condition === 'turnkey') {
-                resultClass = 'maybe';
-                resultTitle = 'MAYBE';
-                resultMessage = 'MaxDispo might have a buyer for this deal (Turnkey properties require additional review)';
-                
-                resultDiv.className = 'result ' + resultClass;
-                resultDiv.classList.remove('hidden');
-                resultDiv.innerHTML = `
-                    <h3>${resultTitle}</h3>
-                    <p class="result-message">${resultMessage}</p>
-                    <div class="result-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Property:</span>
-                            <span class="detail-value">${address}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Population:</span>
-                            <span class="detail-value">${population.toLocaleString()}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Condition:</span>
                             <span class="detail-value">Turnkey/Cash Ready</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">ARV:</span>
-                            <span class="detail-value">$${arv.toLocaleString()}</span>
+                            <span class="detail-value">${arv.toLocaleString()}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Repairs:</span>
-                            <span class="detail-value">$${repairs.toLocaleString()}</span>
+                            <span class="detail-value">${repairs.toLocaleString()}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Listing Price:</span>
-                            <span class="detail-value">$${listingPrice.toLocaleString()}</span>
+                            <span class="detail-value">${listingPrice.toLocaleString()}</span>
                         </div>
                         <div class="result-note">
                             Note: Turnkey properties cannot receive an immediate YES rating
@@ -887,6 +901,7 @@
             const maybeThreshold = (arv * 0.9) - (1.5 * repairs);
 
             // Determine result
+            let reasonNote = '';
             if (listingPrice <= yesThreshold) {
                 resultClass = 'yes';
                 resultTitle = 'YES';
@@ -899,6 +914,8 @@
                 resultClass = 'no';
                 resultTitle = 'NO';
                 resultMessage = 'MaxDispo does NOT have a buyer for this deal';
+                const overage = listingPrice - maybeThreshold;
+                reasonNote = `Reason: Listing price ($${listingPrice.toLocaleString()}) is $${overage.toLocaleString()} over the MAYBE threshold ($${maybeThreshold.toLocaleString()}). Price needs to be reduced to attract buyers.`;
             }
 
             resultDiv.className = 'result ' + resultClass;
@@ -917,7 +934,7 @@
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Condition:</span>
-                        <span class="detail-value">Needs Work/Repairs</span>
+                        <span class="detail-value">${condition === 'turnkey' ? 'Turnkey/Cash Ready' : 'Needs Work/Repairs'}</span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">ARV:</span>
@@ -939,6 +956,7 @@
                         <span class="detail-label">MAYBE Threshold:</span>
                         <span class="detail-value">$${maybeThreshold.toLocaleString()}</span>
                     </div>
+                    ${reasonNote ? `<div class="result-note">${reasonNote}</div>` : ''}
                 </div>
             `;
 
@@ -946,4 +964,4 @@
         });
     </script>
 </body>
-</html>
+
