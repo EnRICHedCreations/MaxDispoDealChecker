@@ -759,6 +759,32 @@
                 opacity: 1;
                 top: 30px;
             }
+            
+            .dispo-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 24px;
+                background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+                color: white;
+                text-decoration: none;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 16px;
+                transition: all 0.3s ease;
+                margin-top: 20px;
+                box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+            }
+
+            .dispo-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+            }
+
+            .dispo-btn img {
+                height: 24px;
+                width: auto;
+            }
 
         </style>
     </head>
@@ -1105,6 +1131,17 @@
                         </div>
                     `;
                     copyResultsToClipboard({ address, population, condition, arv, repairs, contractPrice, isOnMarket, listingPrice, yesThreshold });
+                    resultDiv.innerHTML = `
+                        <h3>${resultTitle}</h3>
+                        <p class="result-message">${resultMessage}</p>
+                        <div class="result-details">
+                            ${detailsHtml}
+                        </div>
+                        <a href="https://maxdispo.com/" target="_blank" class="dispo-btn">
+                            <img src="https://maxdispo.com/wp-content/uploads/2025/02/maxdispo-logo-white-1024x593.png" alt="MaxDispo Logo">
+                            Dispo with MaxDispo
+                        </a>
+                    `;
                 } else if (resultClass === 'maybe') {
                     detailsHtml = baseDetails + `
                         <div class="detail-row">
@@ -1117,21 +1154,31 @@
                         </div>
                     `;
                     copyResultsToClipboard({ address, population, condition, arv, repairs, contractPrice, isOnMarket, listingPrice, yesThreshold, maybeThreshold });
+                    resultDiv.innerHTML = `
+                        <h3>${resultTitle}</h3>
+                        <p class="result-message">${resultMessage}</p>
+                        <div class="result-details">
+                            ${detailsHtml}
+                        </div>
+                        <a href="https://maxdispo.com/" target="_blank" class="dispo-btn">
+                            <img src="https://maxdispo.com/wp-content/uploads/2025/02/maxdispo-logo-white-1024x593.png" alt="MaxDispo Logo">
+                            Dispo with MaxDispo
+                        </a>
+                    `;
                 } else { // NO case
                     detailsHtml += baseDetails;
                      if (reasonNote) {
                         detailsHtml += `<div class="result-note">${reasonNote}</div>`;
                     }
+                    resultDiv.innerHTML = `
+                        <h3>${resultTitle}</h3>
+                        <p class="result-message">${resultMessage}</p>
+                        <div class="result-details">
+                            ${detailsHtml}
+                        </div>
+                    `;
                 }
 
-                resultDiv.innerHTML = `
-                    <h3>${resultTitle}</h3>
-                    <p class="result-message">${resultMessage}</p>
-                    <div class="result-details">
-                        ${detailsHtml}
-                    </div>
-                `;
-    
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
         </script>
