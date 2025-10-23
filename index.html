@@ -792,7 +792,7 @@
                     <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
                     <div class="card-info">
                         <h2>MaxDispo Deal Analyzer</h2>
-                        <p>Enter your property details below to instantly determine deal viability using the proven 90% rule formula</p>
+                        <p>Enter your property details below to instantly determine deal viability using the proven 90% rule formula. MAO is calculated as (ARV × 90%) - (Repairs × 2) - $10,000.</p>
                     </div>
                 </div>
     
@@ -1031,8 +1031,8 @@
                 }
 
                 // --- Calculation ---
-                const yesThreshold = (arv * 0.9) - (2 * repairs);
-                const maybeThreshold = (arv * 0.9) - (1.5 * repairs);
+                const yesThreshold = (arv * 0.9) - (2 * repairs) - 10000;
+                const maybeThreshold = (arv * 0.9) - (2 * repairs) + 10000;
 
                 // --- Result Determination ---
                 let resultClass, resultTitle, resultMessage, detailsHtml = '', reasonNote = '';
@@ -1100,7 +1100,7 @@
                 if (resultClass === 'yes') {
                     detailsHtml = baseDetails + `
                         <div class="detail-row">
-                            <span class="detail-label">YES:</span>
+                            <span class="detail-label">MAO:</span>
                             <span class="detail-value">$${yesThreshold.toLocaleString()}</span>
                         </div>
                     `;
