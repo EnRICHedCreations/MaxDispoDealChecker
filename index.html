@@ -135,31 +135,72 @@
     
             /* Hero Section */
             .hero {
-                text-align: center;
-                padding: 40px 20px 0px;
+                padding: 40px 20px 40px;
                 background: linear-gradient(180deg, var(--dark-gray) 0%, var(--black) 100%);
             }
-    
+
+            .hero-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+                align-items: center;
+            }
+
+            .hero-text {
+                text-align: left;
+            }
+
             .hero h1 {
                 font-size: 38px;
                 font-weight: 900;
                 margin-bottom: 12px;
                 line-height: 1.2;
             }
-    
+
             .hero h1 .gradient-text {
                 background: linear-gradient(45deg, #C1A25B, #69522F);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
             }
-    
+
             .hero p {
                 font-size: 15px;
                 color: #aaa;
-                max-width: 620px;
-                margin: 0 auto;
                 line-height: 1.5;
+            }
+
+            .hero-video {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid var(--gold-light);
+                position: relative;
+            }
+
+            .hero-video::before {
+                content: "\f04b";
+                font-family: "Font Awesome 6 Free";
+                font-weight: 900;
+                font-size: 48px;
+                color: var(--gold-light);
+                opacity: 0.7;
+            }
+
+            .video-placeholder-text {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: #aaa;
+                font-size: 14px;
+                text-align: center;
             }
     
             /* Main Container */
@@ -393,19 +434,28 @@
                 background: #f8d7da;
                 border: 3px solid #dc3545;
             }
-    
+
+            .result.maybe {
+                background: #fff3cd;
+                border: 3px solid #ffc107;
+            }
+
             .result h3 {
                 font-weight: 800;
                 font-size: 32px;
                 margin-bottom: 12px;
             }
-    
+
             .result.yes h3 {
                 color: #155724;
             }
-    
+
             .result.no h3 {
                 color: #721c24;
+            }
+
+            .result.maybe h3 {
+                color: #856404;
             }
     
             .result-message {
@@ -418,9 +468,13 @@
             .result.yes .result-message {
                 color: #155724;
             }
-    
+
             .result.no .result-message {
                 color: #721c24;
+            }
+
+            .result.maybe .result-message {
+                color: #856404;
             }
     
             .result-details {
@@ -450,10 +504,15 @@
             .result.yes .detail-value {
                 color: #155724;
             }
-    
+
             .result.no .detail-label,
             .result.no .detail-value {
                 color: #721c24;
+            }
+
+            .result.maybe .detail-label,
+            .result.maybe .detail-value {
+                color: #856404;
             }
     
             .result-note {
@@ -678,6 +737,15 @@
                     justify-content: center;
                 }
     
+                .hero-content {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+
+                .hero-text {
+                    text-align: center;
+                }
+
                 .hero h1 {
                     font-size: 30px;
                 }
@@ -765,7 +833,7 @@
                 align-items: center;
                 gap: 12px;
                 padding: 12px 24px;
-                background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+                background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
                 color: white;
                 text-decoration: none;
                 border-radius: 8px;
@@ -784,6 +852,74 @@
             .dispo-btn img {
                 height: 24px;
                 width: auto;
+            }
+
+            /* Modal styles */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 2000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                animation: fadeIn 0.3s ease;
+            }
+
+            .modal.show {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal-content {
+                background: white;
+                border-radius: 16px;
+                padding: 40px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+                box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+                animation: slideIn 0.3s ease;
+                position: relative;
+            }
+
+            .modal-close {
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                font-size: 28px;
+                font-weight: bold;
+                color: #999;
+                cursor: pointer;
+                background: none;
+                border: none;
+                transition: color 0.3s;
+            }
+
+            .modal-close:hover {
+                color: #333;
+            }
+
+            .modal-icon {
+                font-size: 48px;
+                color: var(--gold-light);
+                margin-bottom: 20px;
+            }
+
+            .modal-title {
+                font-size: 24px;
+                font-weight: 700;
+                color: #333;
+                margin-bottom: 15px;
+            }
+
+            .modal-message {
+                font-size: 16px;
+                color: #666;
+                line-height: 1.6;
+                margin-bottom: 30px;
             }
 
         </style>
@@ -807,8 +943,15 @@
     
         <!-- Hero Section -->
         <section class="hero">
-            <h1><span class="gradient-text">MaxDispo Deal Analyzer</span> <span style="color: white;">Tool</span></h1>
-            <p>Evaluate wholesale deals using the 90% rule to determine if MaxDispo has a buyer ready for your property</p>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1><span class="gradient-text">MaxDispo Deal Analyzer</span> <span style="color: white;">Tool</span></h1>
+                    <p>Check your Wholesale deals to see if MaxDispo has a buyer.</p>
+                </div>
+                <div class="hero-video">
+                    <span class="video-placeholder-text">Video Tutorial Coming Soon</span>
+                </div>
+            </div>
         </section>
     
         <!-- Main Container -->
@@ -817,11 +960,21 @@
                 <div class="card-header">
                     <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
                     <div class="card-info">
-                        <h2>MaxDispo Deal Analyzer</h2>
-                        <p>Enter your property details below to instantly determine deal viability using the proven 90% rule formula. MAO is calculated as (ARV × 90%) - (Repairs × 2) - $10,000.</p>
                     </div>
                 </div>
     
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="propertyType" class="form-label">Property Type</label>
+                        <select id="propertyType" class="form-select" required>
+                            <option value="">Select Property Type</option>
+                            <option value="single-family-cash">House Cash Deal</option>
+                            <option value="land">Land Deal</option>
+                            <option value="creative">Creative Deal</option>
+                        </select>
+                    </div>
+                </div>
+
                 <form id="dealForm">
                     <div class="form-row">
                         <div class="form-group">
@@ -855,6 +1008,13 @@
                             <input type="date" id="closingDate" class="form-input" required>
                         </div>
                     </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inspectionPeriod" class="form-label">Inspection Period Expiration</label>
+                            <input type="date" id="inspectionPeriod" class="form-input" required>
+                        </div>
+                    </div>
     
                     <div class="form-row">
                         <div class="form-group">
@@ -873,14 +1033,14 @@
                             <input type="number" id="listingPrice" class="form-input" placeholder="$200,000" step="1000">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group full-width">
                             <label for="condition" class="form-label">Property Condition</label>
                             <select id="condition" class="form-select" required>
                                 <option value="">Select Condition</option>
                                 <option value="needswork">Needs Work/Repairs</option>
-                                <option value="turnkey">Turnkey/Cash Ready</option>
+                                <option value="turnkey">Turnkey/Fully Remodeled</option>
                             </select>
                         </div>
                     </div>
@@ -935,7 +1095,6 @@
                             <a href="https://www.skool.com/how-to-wholesale/about?ref=26880ff623564ca0a17ff78586c11984" target="_blank" class="footer-cta-btn">
                                 Join Wholesailors Academy Now →
                             </a>
-                            <p class="footer-guarantee">30-Day Money-Back Guarantee</p>
                         </div>
                     </div>
                 </div>
@@ -949,7 +1108,23 @@
                 </div>
             </div>
         </footer>
-    
+
+        <!-- Modal for Land and Creative Deals -->
+        <div id="propertyTypeModal" class="modal">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closePropertyTypeModal()"><i class="fa-solid fa-xmark"></i></button>
+                <div class="modal-icon">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <h2 class="modal-title">Coming Soon!</h2>
+                <p class="modal-message">Land and Creative Analyzers Coming Soon, please submit your deal to MaxDispo anyways.</p>
+                <a href="https://maxdispo.com/" target="_blank" class="dispo-btn">
+                    <img src="https://maxdispo.com/wp-content/uploads/2025/02/maxdispo-logo-white-1024x593.png" alt="MaxDispo Logo">
+                    Submit to MaxDispo
+                </a>
+            </div>
+        </div>
+
         <script>
             function showNotification(message) {
                 const notification = document.createElement('div');
@@ -981,7 +1156,8 @@
                     Contract Price: $${data.contractPrice.toLocaleString()}
                     ${data.isOnMarket ? `Listing Price: $${data.listingPrice.toLocaleString()}\n` : ''}
                     --- CALCULATIONS ---
-                    MAO: $${data.yesThreshold.toLocaleString()}
+                    MAO: $${data.mao.toLocaleString()}
+                    Accepted Threshold: $${data.yesThreshold.toLocaleString()}
                     ${data.maybeThreshold ? `MAYBE Threshold: $${data.maybeThreshold.toLocaleString()}` : ''}
                 `.replace(/^\s+/gm, ''); // Remove leading whitespace from each line
 
@@ -1015,11 +1191,49 @@
             onMarketSwitch.addEventListener('input', toggleListingPrice);
             // Initial state
             toggleListingPrice();
-    
-    
+
+            // Modal functions
+            function showPropertyTypeModal() {
+                const modal = document.getElementById('propertyTypeModal');
+                modal.classList.add('show');
+            }
+
+            function closePropertyTypeModal() {
+                const modal = document.getElementById('propertyTypeModal');
+                modal.classList.remove('show');
+            }
+
+            // Close modal when clicking outside of it
+            window.onclick = function(event) {
+                const modal = document.getElementById('propertyTypeModal');
+                if (event.target === modal) {
+                    closePropertyTypeModal();
+                }
+            }
+
+            // Property type change listener
+            const propertyTypeSelect = document.getElementById('propertyType');
+            propertyTypeSelect.addEventListener('change', function() {
+                const propertyType = this.value;
+                if (propertyType === 'land' || propertyType === 'creative') {
+                    showPropertyTypeModal();
+                    // Reset to default option
+                    setTimeout(() => {
+                        this.value = '';
+                    }, 100);
+                }
+            });
+
             document.getElementById('dealForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
+
+                // Check property type first
+                const propertyType = document.getElementById('propertyType').value;
+                if (propertyType === 'land' || propertyType === 'creative') {
+                    showPropertyTypeModal();
+                    return;
+                }
+
                 // --- Input Gathering ---
                 const address = document.getElementById('address').value;
                 const populationStr = document.getElementById('population').value;
@@ -1027,17 +1241,19 @@
                 const repairs = parseFloat(document.getElementById('repairs').value);
                 const contractPrice = parseFloat(document.getElementById('contractPrice').value);
                 const closingDateStr = document.getElementById('closingDate').value;
+                const inspectionPeriodStr = document.getElementById('inspectionPeriod').value;
                 const isOnMarket = onMarketSwitch.checked;
                 const listingPrice = isOnMarket ? parseFloat(document.getElementById('listingPrice').value) : 0;
                 const condition = document.getElementById('condition').value;
     
                 const population = parseInt(populationStr.replace(/,/g, ''));
                 const resultDiv = document.getElementById('result');
-                
+
                 let denialReasons = [];
+                let maybeReasons = [];
 
                 // --- Validation Rules ---
-            
+
                 // 1. Closing Date Check
                 if (closingDateStr) {
                     const closingDate = new Date(closingDateStr + 'T00:00:00'); // Use T00:00:00 to avoid timezone issues
@@ -1051,14 +1267,43 @@
                     }
                 }
 
-                // 2. Population Check
+                // 2. Inspection Period Check
+                if (inspectionPeriodStr) {
+                    const inspectionDate = new Date(inspectionPeriodStr + 'T00:00:00');
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const threeDaysFromNow = new Date(today);
+                    threeDaysFromNow.setDate(today.getDate() + 3);
+
+                    if (inspectionDate < threeDaysFromNow) {
+                        denialReasons.push('Inspection period must expire at least 3 days from today.');
+                    }
+                }
+
+                // 3. Population Check
                 if (population < 10000) {
                     denialReasons.push(`City population of ${population.toLocaleString()} is below the 10,000 minimum.`);
+                } else if (population >= 10000 && population <= 30000) {
+                    maybeReasons.push(`City population of ${population.toLocaleString()} is between 10,000 and 30,000, requiring additional review.`);
+                }
+
+                // 4. Turnkey Property Check
+                if (condition === 'turnkey') {
+                    maybeReasons.push('Turnkey houses are better fitted for Creative Finance Deals.');
+                }
+
+                // 5. Contract Price vs Listing Price Check (for on-market properties)
+                if (isOnMarket && listingPrice > 0) {
+                    const priceDifference = listingPrice - contractPrice;
+                    if (priceDifference <= 30000) {
+                        denialReasons.push(`Contract price ($${contractPrice.toLocaleString()}) is within $30,000 of listing price ($${listingPrice.toLocaleString()}). Difference: $${priceDifference.toLocaleString()}.`);
+                    }
                 }
 
                 // --- Calculation ---
-                const yesThreshold = (arv * 0.9) - (2 * repairs) - 10000;
-                const maybeThreshold = (arv * 0.9) - (2 * repairs) + 10000;
+                const mao = (arv * 0.9) - (2 * repairs) - 10000;
+                const yesThreshold = (arv * 0.9) - (1.999 * repairs) - 10000;
+                const maybeThreshold = (arv * 0.9) - (1.5 * repairs) - 10000;
 
                 // --- Result Determination ---
                 let resultClass, resultTitle, resultMessage, detailsHtml = '', reasonNote = '';
@@ -1069,6 +1314,13 @@
                     resultMessage = 'MaxDispo does NOT have a buyer for this deal for the following reasons:';
                     const reasonsHtml = `<ul>${denialReasons.map(reason => `<li>${reason}</li>`).join('')}</ul>`;
                     detailsHtml = `<div class="result-note">${reasonsHtml}</div>`;
+                } else if (maybeReasons.length > 0) {
+                    // If there are maybe reasons, force result to MAYBE regardless of price
+                    resultClass = 'maybe';
+                    resultTitle = 'MAYBE';
+                    resultMessage = 'MaxDispo might have a buyer for this deal';
+                    const reasonsHtml = `<ul>${maybeReasons.map(reason => `<li>${reason}</li>`).join('')}</ul>`;
+                    reasonNote = reasonsHtml;
                 } else {
                     if (contractPrice <= yesThreshold) {
                         resultClass = 'yes';
@@ -1127,10 +1379,14 @@
                     detailsHtml = baseDetails + `
                         <div class="detail-row">
                             <span class="detail-label">MAO:</span>
+                            <span class="detail-value">$${mao.toLocaleString()}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Accepted Threshold:</span>
                             <span class="detail-value">$${yesThreshold.toLocaleString()}</span>
                         </div>
                     `;
-                    copyResultsToClipboard({ address, population, condition, arv, repairs, contractPrice, isOnMarket, listingPrice, yesThreshold });
+                    copyResultsToClipboard({ address, population, condition, arv, repairs, contractPrice, isOnMarket, listingPrice, mao, yesThreshold });
                     resultDiv.innerHTML = `
                         <h3>${resultTitle}</h3>
                         <p class="result-message">${resultMessage}</p>
@@ -1146,6 +1402,10 @@
                     detailsHtml = baseDetails + `
                         <div class="detail-row">
                             <span class="detail-label">MAO:</span>
+                            <span class="detail-value">$${mao.toLocaleString()}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Accepted Threshold:</span>
                             <span class="detail-value">$${yesThreshold.toLocaleString()}</span>
                         </div>
                         <div class="detail-row">
@@ -1153,7 +1413,10 @@
                             <span class="detail-value">$${maybeThreshold.toLocaleString()}</span>
                         </div>
                     `;
-                    copyResultsToClipboard({ address, population, condition, arv, repairs, contractPrice, isOnMarket, listingPrice, yesThreshold, maybeThreshold });
+                    if (reasonNote) {
+                        detailsHtml += `<div class="result-note">${reasonNote}</div>`;
+                    }
+                    copyResultsToClipboard({ address, population, condition, arv, repairs, contractPrice, isOnMarket, listingPrice, mao, yesThreshold, maybeThreshold });
                     resultDiv.innerHTML = `
                         <h3>${resultTitle}</h3>
                         <p class="result-message">${resultMessage}</p>
@@ -1166,9 +1429,29 @@
                         </a>
                     `;
                 } else { // NO case
-                    detailsHtml += baseDetails;
-                     if (reasonNote) {
-                        detailsHtml += `<div class="result-note">${reasonNote}</div>`;
+                    // Check if this is a denial reasons NO or a price-based NO
+                    if (denialReasons.length === 0) {
+                        // Price-based NO - show all details
+                        detailsHtml = baseDetails + `
+                            <div class="detail-row">
+                                <span class="detail-label">MAO:</span>
+                                <span class="detail-value">$${mao.toLocaleString()}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Accepted Threshold:</span>
+                                <span class="detail-value">$${yesThreshold.toLocaleString()}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">MAYBE Threshold:</span>
+                                <span class="detail-value">$${maybeThreshold.toLocaleString()}</span>
+                            </div>
+                        `;
+                        if (reasonNote) {
+                            detailsHtml += `<div class="result-note">${reasonNote}</div>`;
+                        }
+                    } else {
+                        // Denial reasons NO - show basic details and reasons
+                        detailsHtml = baseDetails + detailsHtml;
                     }
                     resultDiv.innerHTML = `
                         <h3>${resultTitle}</h3>
